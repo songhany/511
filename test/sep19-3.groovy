@@ -1,4 +1,4 @@
-//! Exercise: ensure that only aab... pattern is printed
+// Exercise: ensure that only aab... pattern is printed
 import java.util.concurrent.Semaphore
 
 
@@ -22,6 +22,4 @@ Thread.start {
     a.release()
   }
 }
-
-// wait for P and Q to finish
 
