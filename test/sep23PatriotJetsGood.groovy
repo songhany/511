@@ -21,7 +21,7 @@ itGotLate = false
     // entry protocol
     mutex.acquire()
     if (!itGotLate) {
-      ticket.acquire()
+      ticket.acquire()  // -> combine two ticket.acquire() to ticket.acquire(2), but there is different using parameter. About deadlock
       ticket.acquire()
     }
     mutex.release()

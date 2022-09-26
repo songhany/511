@@ -5,7 +5,6 @@ import java.util.concurrent.Semaphore
 
 Semaphore ticket = new Semaphore(0)
 Semaphore mutex = new Semaphore(1)
-itGotLate = false
 
 20.times {
   Thread.start {  // Patriot
@@ -19,21 +18,7 @@ itGotLate = false
 20.times {
   Thread.start {  // Jets
     // entry protocol
-
-    if (!itGotLate) {
-      mutex.acquire()
-      ticket.acquire()
-      ticket.acquire()
-      mutex.release()
-    }
+      // Same like before sep23PatriotJets.groovy, 
     // go in
-  }
-}
-
-Thread.start {  // Timer
-  sleep(1000)
-  itGotLate = true
-  while(true) {
-    ticket.release()
   }
 }

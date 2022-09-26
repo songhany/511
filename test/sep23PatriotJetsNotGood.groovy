@@ -5,6 +5,7 @@ import java.util.concurrent.Semaphore
 
 Semaphore ticket = new Semaphore(0)
 Semaphore mutex = new Semaphore(1)
+itGotLate = false
 
 20.times {
   Thread.start {  // Patriot
@@ -18,7 +19,19 @@ Semaphore mutex = new Semaphore(1)
 20.times {
   Thread.start {  // Jets
     // entry protocol
-    ticket.acquire(2)  // Same like before sep23PatriotJets.groovy, but there is different using parameter. About deadlock
+
+    if (!itGotLate) {  // This have problem
+      mutex.acquire()
+      ticket.acquire()
+      ticket.acquire()
+      mutex.release()
+    }
     // go in
   }
+}
+
+Thread.start {  // Timer
+  sleep(1000)
+  itGotLate = true
+  while(true) { ticket.release() }
 }
