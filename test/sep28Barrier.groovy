@@ -16,7 +16,7 @@ int[] c = new int[N]
 
 N.times {
   Thread.start {
-    int id = t;
+    int id = it;
     10.times { // while (true) {
       // arrival
       mutex.acquire()
