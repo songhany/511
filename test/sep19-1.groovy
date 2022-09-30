@@ -3,7 +3,6 @@ import java.util.concurrent.Semaphore
 Semaphore mutex = new Semaphore(1)
 Semaphore b = new Semaphore(0)
 
-
 c = 0
 
 P = Thread.start {

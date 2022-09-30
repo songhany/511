@@ -33,6 +33,7 @@ N.times {
       barrier.acquire()
       println id + " passed barrier. c=" + c[id]
 
+
       mutex.acquire()
       t--
       if (t == 0) {
