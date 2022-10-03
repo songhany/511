@@ -1,5 +1,4 @@
 import java.util.concurrent.Semaphore
-// This is not fair
 
 Semaphore mutexC = new Semaphore(1)
 Semaphore mutexD = new Semaphore(1)
