@@ -11,7 +11,7 @@ class Buffer {
       wait();
     }
     buffer = o;
-    notify();  // why only use notify() possibly cause deadlock ? end up both Consumer and Producer wait()
+    notifyAll();  // fix deadlock problem
   }
 
   synchronized Object consume() {
@@ -20,7 +20,7 @@ class Buffer {
     }
     Object temp = buffer;
     buffer = null;
-    notify();  // why only use notify() possibly cause deadlock ? end up both Consumer and Producer wait()
+    notifyAll();  // fix deadlock problem
     return temp;
   }
 }
