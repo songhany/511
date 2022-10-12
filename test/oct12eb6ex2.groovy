@@ -1,57 +1,57 @@
 /*
-Implement the fan bar exercise from Exercise Booklet 5, using monitors. 
-Here is the statement. On Fridays the bar is usually full of Jets fans. 
-Since the owners are Patriots fans they would like to implement an access control mechanism 
-in which one Jets fan can enter for every two Patriots fans.
+  We wish to implement a three-way sequencer using monitors in order to coordinate N threads. 
+  A three-way sequencer provides the following operations first, second, third. 
+  The idea is that each of the threads can invoke any of these operations. 
+  The sequencer will alternate cyclically the execution of first, then second, and finally third.
 */
 
 
 class TWS {
-  int state = 1;
+  int state;
   static final Lock lock = new ReentrantLock();
   static final Condition first = lock.newCondition(); 
   static final Condition second = lock.newCondition();
   static final Condition third = lock.newCondition();
 
   TWS() {
-
+    state = 1;
   }
 
   synchronized void printState(int i) {
-    
+    println Threa.concurrentThread().getId() + " executed " + i;
   }
 
-  one() {
-     lock.lock();  // block until condition holds
-     try {
-       // ... method body
-     } finally {
-       lock.unlock()
-     }
+  synchronized void one() {
+    while (state != 1) {
+      wait();
+    }
+    state = 2;
+    notifyAll();
+    printState(1);
   }
 
-  two() {
-     lock.lock();  // block until condition holds
-     try {
-       // ... method body
-     } finally {
-       lock.unlock()
-     }
+  synchronized void two() {
+    while (state != 2) {
+      wait();
+    }
+    state = 3;
+    notifyAll();
+    printState(2);
   }
 
-  three() {
-     lock.lock();  // block until condition holds
-     try {
-       // ... method body
-     } finally {
-       lock.unlock()
-     }
+  synchronized void three() {
+    while (state != 3) {
+      wait();
+    }
+    state = 1;
+    notifyAll();
+    printState(3);
   }
 }
 
-TWS tws = new TWS()
+TWS tws = new TWS();
 
-200.times {
+100.times {
   Thread.start {
     swtch(new Random().nextInt(3)) {
       case 0: tws.one() break

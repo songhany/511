@@ -7,7 +7,6 @@ in which one Jets fan can enter for every two Patriots fans.
 
 
 class Bar {
-
   private int unsorted_priorities = 0;
   private int p = 0;
   private int j = 0;
