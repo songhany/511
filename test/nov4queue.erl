@@ -1,4 +1,4 @@
--module(ex).
+-module(nov4queue).
 -compile(export_all).
 
 q1() ->
